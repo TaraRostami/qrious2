@@ -1,4 +1,5 @@
-QRious  
+QRious2  
+Copyright (C) 2024 Tara Rostami  
 Copyright (C) 2017 Alasdair Mercer  
 Copyright (C) 2010 Tom Zerucha  
 

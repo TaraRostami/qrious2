@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<!--
+QRious2
+Copyright (C) 2024 Tara Rostami
+Copyright (C) 2017 Alasdair Mercer
+Copyright (C) 2010 Tom Zerucha
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link href="./style.css" rel="stylesheet">
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
+    <title>QRious Demo</title>
+  </head>
+  <body>
+    <div class="tr-header">
+      <div class="tr-qrcode">
+        <div class="tr-qrcode-box">
+          <canvas class="tr-qrcode-canvas" id="qrious"></canvas>
+        </div>
+      </div>
+      <h2 class="font-bold">QRious 2</h2>
+    </div>
+    <main class="tr-main">
+      <div class="tr-main-div">
+        <section class="tr-section">
+          <div class="tr-mt-8">
+            <h2>
+              <a class="text-lg font-bold">
+                <label for="qr-value">Value</label>
+              </a>
+            </h2>
+            <p class="tr-mt-1 tr-text-gray">You can control it using<code>value: content</code>.</p>
+            <textarea class="tr-textarea tr-mt-5" id="qr-value" name="value" value="QRious" spellcheck="false"></textarea>
+          </div>
+          <div class="tr-mt-8">
+            <h2>
+              <a class="text-lg font-bold">Size <span class="font-bold tr-tag-green">Updated</span>
+              </a>
+            </h2>
+            <p class="tr-mt-1 tr-text-gray">You can control it using<code>size: 300</code>.</p>
+            <div class="tr-input-number tr-mt-5">
+              <div class="tr-input-number-inner">
+                <div class="tr-input-number-input-wrap">
+                  <input class="tr-input-number-input" type="number" name="size" placeholder="100" min="100" max="1000" value="150">
+                </div>
+                <div class="tr-input-number-handler-wrap">
+                  <span class="tr-input-number-handler tr-input-number-handler-down" id="size-down">
+                    <span class="tricon tricon-down tr-input-number-handler-down-inner">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                      </svg>
+                    </span>
+                  </span>
+                  <span class="tr-input-number-handler tr-input-number-handler-up" id="size-up">
+                    <span class="tricon tricon-up tr-input-number-handler-up-inner">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="M12 5v14"></path>
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tr-mt-8">
+            <h2>
+              <a class="text-lg font-bold">Padding <span class="font-bold tr-tag-green">Updated</span>
+              </a>
+            </h2>
+            <p class="tr-mt-1 tr-text-gray">You can control it using<code>padding: 3</code>.</p>
+            <div class="tr-input-number tr-mt-5">
+              <div class="tr-input-number-inner">
+                <div class="tr-input-number-input-wrap">
+                  <input class="tr-input-number-input" type="number" name="padding" placeholder="0" min="0" max="500" value="0">
+                </div>
+                <div class="tr-input-number-handler-wrap">
+                  <span class="tr-input-number-handler tr-input-number-handler-down" id="padding-down">
+                    <span class="tricon tricon-down tr-input-number-handler-down-inner">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                      </svg>
+                    </span>
+                  </span>
+                  <span class="tr-input-number-handler tr-input-number-handler-up" id="padding-up">
+                    <span class="tricon tricon-up tr-input-number-handler-up-inner">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="M12 5v14"></path>
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section class="tr-section">
+          <div class="tr-mt-8">
+            <h2>
+              <a class="text-lg font-bold">
+                <label for="foreground">Foreground Color</label>
+              </a>
+            </h2>
+            <p class="tr-mt-1 tr-text-gray">You can control it using<code>foreground: 'black'</code>,You can also use hex and rgb code.</p>
+            <div class="tr-color-picker tr-mt-5">
+              <input class="tr-color-picker-input" type="color" name="foreground" id="foreground" value="#000000">
+            </div>
+          </div>
+          <div class="tr-mt-8">
+            <h2>
+              <a class="text-lg font-bold">
+                <label for="background">Background Color</label>
+              </a>
+            </h2>
+            <p class="tr-mt-1 tr-text-gray">You can control it using<code>background: 'white'</code>,You can also use hex and rgb code.</p>
+            <div class="tr-color-picker tr-mt-5">
+              <input class="tr-color-picker-input" type="color" name="background" id="background" value="#ffffff">
+            </div>
+          </div>
+          <div class="tr-mt-8">
+            <h2>
+              <a class="text-lg font-bold">Foreground Alpha</a>
+            </h2>
+            <p class="tr-mt-1 tr-text-gray">You can control it using<code>foregroundAlpha: 1.0</code>.</p>
+            <div id="slider-box1" class="tr-slider-box tr-mt-5">
+              <input id="tr-range-slider1" class="tr-slider-range" type="range" name="foregroundAlpha" placeholder="1" min="0" max="1" step="0.1" value="1">
+              <div id="range-value1" class="tr-range-value">0</div>
+            </div>
+          </div>
+          <div class="tr-mt-8">
+            <h2>
+              <a class="text-lg font-bold">Background Alpha</a>
+            </h2>
+            <p class="tr-mt-1 tr-text-gray">You can control it using <code>backgroundAlpha: 1.0</code>. </p>
+            <div id="slider-box2" class="tr-slider-box tr-mt-5">
+              <input id="tr-range-slider2" class="tr-slider-range" type="range" name="backgroundAlpha" placeholder="1" min="0" max="1" step="0.1" value="1">
+              <div id="range-value2" class="tr-range-value">0</div>
+            </div>
+          </div>
+        </section>
+        <section class="tr-section">
+          <div class="tr-mt-8">
+            <h2>
+              <a class="text-lg font-bold">
+                <label for="level">Level</label>
+              </a>
+            </h2>
+            <p class="tr-mt-1 tr-text-gray">You can control it using<code>level: 'H'</code>.</p>
+            <div class="tr-select tr-mt-5">
+              <select class="tr-select-inner" name="level" id="level">
+                <option value="L">L - 7% damage</option>
+                <option value="M">M - 15% damage</option>
+                <option value="Q">Q - 25% damage</option>
+                <option value="H">H - 30% damage</option>
+              </select>
+            </div>
+          </div>
+          <div class="tr-mt-8">
+            <h2>
+              <a class="text-lg font-bold">
+                <label for="positionSep">Separate Position</label>
+                <span class="font-bold tr-tag-purple">New</span>
+              </a>
+            </h2>
+            <p class="tr-mt-1 tr-text-gray">You can control it using<code>positionSep: 'E'</code>,You can use<code>'E'</code>to enable and<code>'D'</code>to disable, it is disabled by default.</p>
+            <div class="tr-mt-5">
+              <input class="tr-checkbox" type="checkbox" name="positionSep" id="positionSep">
+            </div>
+          </div>
+          <div class="tr-mt-8">
+            <h2>
+              <a class="text-lg font-bold">
+                <label for="dataSep">Separate Data</label>
+                <span class="font-bold tr-tag-purple">New</span>
+              </a>
+            </h2>
+            <p class="tr-mt-1 tr-text-gray">You can control it using<code>dataSep: 'E'</code>,You can use<code>'E'</code>to enable and<code>'D'</code>to disable, it is disabled by default.</p>
+            <div class="tr-mt-5">
+              <input class="tr-checkbox" type="checkbox" name="dataSep" id="dataSep">
+            </div>
+          </div>
+        </section>
+        <section class="tr-section">
+          <div class="tr-mt-8">
+            <h2>
+              <a class="text-lg font-bold">Position Corner <span class="font-bold tr-tag-purple">New</span>
+              </a>
+            </h2>
+            <p class="tr-mt-1 tr-text-gray">You can control it using<code>positionCorner: 3</code>.</p>
+            <div class="tr-input-number tr-mt-5">
+              <div class="tr-input-number-inner">
+                <div class="tr-input-number-input-wrap">
+                  <input class="tr-input-number-input" type="number" name="position-corner" placeholder="0" min="0" max="500" value="0">
+                </div>
+                <div class="tr-input-number-handler-wrap">
+                  <span class="tr-input-number-handler tr-input-number-handler-down" id="position-corner-down">
+                    <span class="tricon tricon-down tr-input-number-handler-down-inner">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                      </svg>
+                    </span>
+                  </span>
+                  <span class="tr-input-number-handler tr-input-number-handler-up" id="position-corner-up">
+                    <span class="tricon tricon-up tr-input-number-handler-up-inner">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="M12 5v14"></path>
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tr-mt-8">
+            <h2>
+              <a class="text-lg font-bold">Data Corner TL <span class="font-bold tr-tag-purple">New</span>
+              </a>
+            </h2>
+            <p class="tr-mt-1 tr-text-gray">You can control it using<code>dataCornerTL: 3</code>.</p>
+            <div class="tr-input-number tr-mt-5">
+              <div class="tr-input-number-inner">
+                <div class="tr-input-number-input-wrap">
+                  <input class="tr-input-number-input" type="number" name="data-corner-tl" placeholder="0" min="0" max="500" value="0">
+                </div>
+                <div class="tr-input-number-handler-wrap">
+                  <span class="tr-input-number-handler tr-input-number-handler-down" id="data-corner-tl-down">
+                    <span class="tricon tricon-down tr-input-number-handler-down-inner">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                      </svg>
+                    </span>
+                  </span>
+                  <span class="tr-input-number-handler tr-input-number-handler-up" id="data-corner-tl-up">
+                    <span class="tricon tricon-up tr-input-number-handler-up-inner">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="M12 5v14"></path>
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tr-mt-8">
+            <h2>
+              <a class="text-lg font-bold">Data Corner TR <span class="font-bold tr-tag-purple">New</span>
+              </a>
+            </h2>
+            <p class="tr-mt-1 tr-text-gray">You can control it using<code>dataCornerTR: 3</code>.</p>
+            <div class="tr-input-number tr-mt-5">
+              <div class="tr-input-number-inner">
+                <div class="tr-input-number-input-wrap">
+                  <input class="tr-input-number-input" type="number" name="data-corner-tr" placeholder="0" min="0" max="500" value="0">
+                </div>
+                <div class="tr-input-number-handler-wrap">
+                  <span class="tr-input-number-handler tr-input-number-handler-down" id="data-corner-tr-down">
+                    <span class="tricon tricon-down tr-input-number-handler-down-inner">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                      </svg>
+                    </span>
+                  </span>
+                  <span class="tr-input-number-handler tr-input-number-handler-up" id="data-corner-tr-up">
+                    <span class="tricon tricon-up tr-input-number-handler-up-inner">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="M12 5v14"></path>
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tr-mt-8">
+            <h2>
+              <a class="text-lg font-bold">Data Corner BR <span class="font-bold tr-tag-purple">New</span>
+              </a>
+            </h2>
+            <p class="tr-mt-1 tr-text-gray">You can control it using<code>dataCornerBR: 3</code>.</p>
+            <div class="tr-input-number tr-mt-5">
+              <div class="tr-input-number-inner">
+                <div class="tr-input-number-input-wrap">
+                  <input class="tr-input-number-input" type="number" name="data-corner-br" placeholder="0" min="0" max="500" value="0">
+                </div>
+                <div class="tr-input-number-handler-wrap">
+                  <span class="tr-input-number-handler tr-input-number-handler-down" id="data-corner-br-down">
+                    <span class="tricon tricon-down tr-input-number-handler-down-inner">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                      </svg>
+                    </span>
+                  </span>
+                  <span class="tr-input-number-handler tr-input-number-handler-up" id="data-corner-br-up">
+                    <span class="tricon tricon-up tr-input-number-handler-up-inner">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="M12 5v14"></path>
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tr-mt-8">
+            <h2>
+              <a class="text-lg font-bold">Data Corner BL <span class="font-bold tr-tag-purple">New</span>
+              </a>
+            </h2>
+            <p class="tr-mt-1 tr-text-gray">You can control it using<code>dataCornerBL: 3</code>.</p>
+            <div class="tr-input-number tr-mt-5">
+              <div class="tr-input-number-inner">
+                <div class="tr-input-number-input-wrap">
+                  <input class="tr-input-number-input" type="number" name="data-corner-bl" placeholder="0" min="0" max="500" value="0">
+                </div>
+                <div class="tr-input-number-handler-wrap">
+                  <span class="tr-input-number-handler tr-input-number-handler-down" id="data-corner-bl-down">
+                    <span class="tricon tricon-down tr-input-number-handler-down-inner">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                      </svg>
+                    </span>
+                  </span>
+                  <span class="tr-input-number-handler tr-input-number-handler-up" id="data-corner-bl-up">
+                    <span class="tricon tricon-up tr-input-number-handler-up-inner">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="0.875rem" height="0.875rem" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"></path>
+                        <path d="M12 5v14"></path>
+                      </svg>
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+    <footer class="tr-footer">
+      <a class="tr-footer-logo" href="./">
+        <svg class="tr-footer-logo-qr" xmlns="http://www.w3.org/2000/svg" height="24" fill="currentColor" viewBox="0 0 24 24" width="24"><path d="m5 11h4c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2zm0-6h4v4h-4z"/><path d="m5 21h4c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2zm0-6h4v4h-4z"/><path d="m13 5v4c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2h-4c-1.1 0-2 .9-2 2zm6 4h-4v-4h4z"/><path d="m21 20.5v-1c0-.28-.22-.5-.5-.5h-1c-.28 0-.5.22-.5.5v1c0 .28.22.5.5.5h1c.28 0 .5-.22.5-.5z"/><path d="m13 13.5v1c0 .28.22.5.5.5h1c.28 0 .5-.22.5-.5v-1c0-.28-.22-.5-.5-.5h-1c-.28 0-.5.22-.5.5z"/><path d="m16.5 15h-1c-.28 0-.5.22-.5.5v1c0 .28.22.5.5.5h1c.28 0 .5-.22.5-.5v-1c0-.28-.22-.5-.5-.5z"/><path d="m13 17.5v1c0 .28.22.5.5.5h1c.28 0 .5-.22.5-.5v-1c0-.28-.22-.5-.5-.5h-1c-.28 0-.5.22-.5.5z"/><path d="m15.5 21h1c.28 0 .5-.22.5-.5v-1c0-.28-.22-.5-.5-.5h-1c-.28 0-.5.22-.5.5v1c0 .28.22.5.5.5z"/><path d="m17.5 19h1c.28 0 .5-.22.5-.5v-1c0-.28-.22-.5-.5-.5h-1c-.28 0-.5.22-.5.5v1c0 .28.22.5.5.5z"/><path d="m18.5 13h-1c-.28 0-.5.22-.5.5v1c0 .28.22.5.5.5h1c.28 0 .5-.22.5-.5v-1c0-.28-.22-.5-.5-.5z"/><path d="m19.5 17h1c.28 0 .5-.22.5-.5v-1c0-.28-.22-.5-.5-.5h-1c-.28 0-.5.22-.5.5v1c0 .28.22.5.5.5z"/></svg>
+        QRious2
+      </a>
+      <div class="tr-footer-inner">
+        <a class="github-button" href="https://github.com/TaraRostami/qrious2" data-icon="octicon-star" aria-label="Star TaraRostami/qrious2 on GitHub">Star</a>
+        <a class="tr-footer-icon" href="https://github.com/TaraRostami/qrious2" aria-label="Github" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path>
+          </svg>
+        </a>
+        <a class="tr-footer-icon" href="https://t.me/tararostami" aria-label="Telegram" target="_blank" rel="noopener">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+            <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"></path>
+          </svg>
+        </a>
+        <div class="tr-footer-version">
+          <img alt="GitHub Release" src="https://img.shields.io/github/v/release/tararostami/qrious2?color=7546c9">
+        </div>
+      </div>
+    </footer>
+    <script src="./dist/qrious2.min.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

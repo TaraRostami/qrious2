@@ -1,5 +1,6 @@
 # Authors ordered by first contribution
 
+* Tara Rostami [@TaraRostami](https://t.me/tararostami/)
 * Tom Zerucha <tz@execpc.com>
 * Alasdair Mercer <mercer.alasdair@gmail.com>
 * Alexandre Perrin <alex@kaworu.ch>

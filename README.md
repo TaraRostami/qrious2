@@ -1,20 +1,12 @@
-     .d88888b.  8888888b.  d8b
-    d88P" "Y88b 888   Y88b Y8P
-    888     888 888    888
-    888     888 888   d88P 888  .d88b.  888  888 .d8888b
-    888     888 8888888P"  888 d88""88b 888  888 88K
-    888 Y8b 888 888 T88b   888 888  888 888  888 "Y8888b.
-    Y88b.Y8b88P 888  T88b  888 Y88..88P Y88b 888      X88
-     "Y888888"  888   T88b 888  "Y88P"   "Y88888  88888P'
-           Y8b
+<p align="center"><img src="./media/qrious2.svg" alt="Image"></p>
 
-[QRious](https://github.com/neocotic/qrious) is a pure JavaScript library for generating QR codes using HTML5 canvas.
+[QRious2](https://github.com/TaraRostami/qrious2/) is a pure JavaScript library for generating QR codes using HTML5 canvas.
 
-[![Chat](https://img.shields.io/gitter/room/neocotic/qrious.svg?style=flat-square)](https://gitter.im/neocotic/qrious)
-[![Demo](https://img.shields.io/badge/demo-live-brightgreen.svg?style=flat-square)](https://codepen.io/neocotic/pen/YQzmBm)
-[![Dev Dependency Status](https://img.shields.io/david/dev/neocotic/qrious.svg?style=flat-square)](https://david-dm.org/neocotic/qrious?type=dev)
-[![License](https://img.shields.io/npm/l/qrious.svg?style=flat-square)](https://github.com/neocotic/qrious/blob/master/LICENSE.md)
-[![Release](https://img.shields.io/npm/v/qrious.svg?style=flat-square)](https://www.npmjs.com/package/qrious)
+[![](https://img.shields.io/github/v/release/TaraRostami/qrious2.svg?color=7546c9)](https://github.com/TaraRostami/qrious2/releases)
+[![Demo](https://img.shields.io/badge/demo-live-1ebf37.svg)](https://tararostami.github.io/qrious2/)
+[![Chat](https://img.shields.io/badge/telegram-blue?logo=telegram&label=chat)](https://t.me/tararostami)
+[![License](https://img.shields.io/npm/l/qrious2.svg?color=blue)](https://github.com/TaraRostami/qrious2/blob/master/LICENSE.md)
+[![Release](https://img.shields.io/npm/v/qrious2.svg)](https://www.npmjs.com/package/qrious2)
 
 * [Install](#install)
 * [Examples](#examples)
@@ -29,15 +21,15 @@
 Install using the package manager for your desired environment(s):
 
 ``` bash
-$ npm install --save qrious
+$ npm install --save qrious2
 # OR:
-$ bower install --save qrious
+$ bower install --save qrious2
 ```
 
 If you want to simply download the file to be used in the browser you can find them below:
 
-* [Development Version](https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.js) (71kb - [Source Map](https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.js.map))
-* [Production Version](https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js) (18kb - [Source Map](https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js.map))
+* [Development Version](https://cdn.jsdelivr.net/gh/TaraRostami/qrious2/dist/qrious2.js) (73kb - [Source Map](https://cdn.jsdelivr.net/gh/TaraRostami/qrious2/dist/qrious2.js.map))
+* [Production Version](https://cdn.jsdelivr.net/gh/TaraRostami/qrious2/dist/qrious2.min.js) (18kb - [Source Map](https://cdn.jsdelivr.net/gh/TaraRostami/qrious2/dist/qrious2.min.js.map))
 
 Check out [node-qrious](https://github.com/neocotic/node-qrious) if you want to install it for use within
 [Node.js](https://nodejs.org).
@@ -55,7 +47,7 @@ Check out [node-qrious](https://github.com/neocotic/node-qrious) if you want to 
       (function() {
         var qr = new QRious({
           element: document.getElementById('qr'),
-          value: 'https://github.com/neocotic/qrious'
+          value: 'https://github.com/tararostami/qrious2'
         });
       })();
     </script>
@@ -82,6 +74,13 @@ using the following fields on your instance:
 | padding         | Number  | Padding for the QR code (pixels)                   | `null` (auto) | No        |
 | size            | Number  | Size of the QR code (pixels)                       | `100`         | No        |
 | value           | String  | Value encoded within the QR code                   | `""`          | No        |
+| positionSep     | String  | Separating cells of positions in QR Code           | `"D"`         | No        |
+| dataSep         | String  | Separating cells of data in QR Code                | `"D"`         | No        |
+| positionCorner  | Number  | Rounding the corners of the QR Code position cells | `"0"`         | No        |
+| dataCornerTL    | Number  | Rounding the top left corner of data cells         | `"0"`         | No        |
+| dataCornerTR    | Number  | Rounding the top right corner of data cells        | `"0"`         | No        |
+| dataCornerBR    | Number  | Rounding the bottom right corner of data cells     | `"0"`         | No        |
+| dataCornerBL    | Number  | Rounding the bottom left corner of data cells      | `"0"`         | No        |
 
 ``` javascript
 var qr = new QRious();
@@ -92,7 +91,7 @@ qr.foregroundAlpha = 0.8;
 qr.level = 'H';
 qr.padding = 25;
 qr.size = 500;
-qr.value = 'https://github.com/neocotic/qrious';
+qr.value = 'https://github.com/TaraRostami/qrious2';
 ```
 
 The QR code will automatically update when you change one of these fields, so be wary when you plan on changing lots of
@@ -109,7 +108,7 @@ qr.set({
   level: 'H',
   padding: 25,
   size: 500,
-  value: 'https://github.com/neocotic/qrious'
+  value: 'https://github.com/TaraRostami/qrious2'
 });
 ```
 
@@ -124,7 +123,7 @@ var qr = new QRious({
   level: 'H',
   padding: 25,
   size: 500,
-  value: 'https://github.com/neocotic/qrious'
+  value: 'https://github.com/TaraRostami/qrious2'
 });
 ```
 
@@ -137,7 +136,7 @@ which means that they can be appended to the document at a later time.
 ``` javascript
 var qr = new QRious({
   element: document.querySelector('canvas'),
-  value: 'https://github.com/neocotic/qrious'
+  value: 'https://github.com/TaraRostami/qrious2'
 });
 
 qr.canvas.parentNode.appendChild(qr.image);
@@ -149,7 +148,7 @@ A reference to the `QRious` instance is also stored on both of the elements for 
 var canvas = document.querySelector('canvas');
 var qr = new QRious({
   element: canvas,
-  value: 'https://github.com/neocotic/qrious'
+  value: 'https://github.com/TaraRostami/qrious2'
 });
 
 qr === canvas.qrious;
@@ -163,7 +162,7 @@ passed to the constructor as an option or the default value for the `mime` optio
 
 ``` javascript
 var qr = new QRious({
-  value: 'https://github.com/neocotic/qrious'
+  value: 'https://github.com/TaraRostami/qrious2'
 });
 
 qr.toDataURL();
@@ -177,25 +176,26 @@ qr.toDataURL('image/jpeg');
 If you've been using an older major version and would like details on what's changed and information on how to migrate
 to the latest major release below:
 
-https://github.com/neocotic/qrious/wiki/Migrating-from-older-versions
+https://github.com/TaraRostami/qrious2/wiki/Migrating-from-older-versions
 
 ## Bugs
 
 If you have any problems with QRious or would like to see changes currently in development you can do so
-[here](https://github.com/neocotic/nqrious/issues). Core features and issues are maintained separately
-[here](https://github.com/neocotic/qrious-core/issues).
+[here](https://github.com/TaraRostami/qrious2/issues). Core features and issues are maintained separately
+[here](https://github.com/TaraRostami/qrious2/issues).
 
 ## Contributors
 
 If you want to contribute, you're a legend! Information on how you can do so can be found in
-[CONTRIBUTING.md](https://github.com/neocotic/qrious/blob/master/CONTRIBUTING.md). We want your suggestions and pull
+[CONTRIBUTING.md](https://github.com/TaraRostami/qrious2/blob/master/CONTRIBUTING.md). We want your suggestions and pull
 requests!
 
-A list of QRious contributors can be found in [AUTHORS.md](https://github.com/neocotic/qrious/blob/master/AUTHORS.md).
+A list of QRious contributors can be found in [AUTHORS.md](https://github.com/TaraRostami/qrious2/blob/master/AUTHORS.md).
 
 ## License
 
+Copyright © 2024 Tara Rostami  
 Copyright © 2017 Alasdair Mercer  
 Copyright © 2010 Tom Zerucha
 
-See [LICENSE.md](https://github.com/neocotic/qrious/blob/master/LICENSE.md) for more information on our GPLv3 license.
+See [LICENSE.md](https://github.com/TaraRostami/qrious2/blob/master/LICENSE.md) for more information on our GPLv3 license.

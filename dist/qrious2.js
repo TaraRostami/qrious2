@@ -1,5 +1,7 @@
 /*
- * QRious v4.0.2
+ * QRious v5.0.0
+ * Copyright (C) 2024 Tara Rostami
+ * Copyright (C) 2023 Tumbler Terrall
  * Copyright (C) 2017 Alasdair Mercer
  * Copyright (C) 2010 Tom Zerucha
  *
@@ -309,7 +311,7 @@
     getModuleSize: function(frame) {
       var qrious = this.qrious;
       var padding = qrious.padding || 0;
-      var pixels = Math.floor((qrious.size - (padding * 2)) / frame.width);
+      var pixels = ((qrious.size - (padding * 2)) / frame.width);
 
       return Math.max(1, pixels);
     },
@@ -331,12 +333,12 @@
       var qrious = this.qrious;
       var padding = qrious.padding;
 
-      if (padding != null) {
-        return padding;
-      }
-
       var moduleSize = this.getModuleSize(frame);
       var offset = Math.floor((qrious.size - (moduleSize * frame.width)) / 2);
+
+      if (padding != null && padding > offset) {
+         return padding;
+      }
 
       return Math.max(0, offset);
     },
@@ -403,17 +405,42 @@
       var moduleSize = this.getModuleSize(frame);
       var offset = this.getOffset(frame);
       var context = this.element.getContext('2d');
+      var positionCorner = qrious.positionCorner;
+      var dataCornerTL = qrious.dataCornerTL;
+      var dataCornerTR = qrious.dataCornerTR;
+      var dataCornerBR = qrious.dataCornerBR;
+      var dataCornerBL = qrious.dataCornerBL;
+      var positionSep = qrious.positionSep || 'D';
+      var dataSep = qrious.dataSep || 'D'; 
 
       context.fillStyle = qrious.foreground;
       context.globalAlpha = qrious.foregroundAlpha;
-
+    
       for (i = 0; i < frame.width; i++) {
         for (j = 0; j < frame.width; j++) {
           if (frame.buffer[(j * frame.width) + i]) {
-            context.fillRect((moduleSize * i) + offset, (moduleSize * j) + offset, moduleSize, moduleSize);
+            var x = Math.floor((moduleSize * i) + offset);
+            var y = Math.floor((moduleSize * j) + offset);
+            var size = Math.ceil(moduleSize);
+            if (frame._isBoldMasked(i, j)) {
+              if (positionSep === 'E') {
+                var x = Math.ceil((moduleSize * i) + offset);
+                var y = Math.ceil((moduleSize * j) + offset);
+                var size = Math.floor(moduleSize);
+              }
+              context.roundRect(x, y, size, size, positionCorner);
+            } else {
+              if (dataSep === 'E') {
+                var x = Math.ceil((moduleSize * i) + offset);
+                var y = Math.ceil((moduleSize * j) + offset);
+                var size = Math.floor(moduleSize);
+              }
+              context.roundRect(x, y, size, size, [dataCornerTL, dataCornerTR, dataCornerBR, dataCornerBL]);
+            }
           }
         }
       }
+      context.fill();
     },
 
     /**
@@ -736,6 +763,7 @@
 
     this._ecc = Frame._createArray(dataBlock + ((dataBlock + eccBlock) * (neccBlock1 + neccBlock2)) + neccBlock2);
     this._mask = Frame._createArray(((width * (width + 1)) + 1) / 2);
+    this._boldmask = Frame._createArray(((width * (width + 1)) + 1) / 2);
 
     this._insertFinders();
     this._insertAlignments();
@@ -1407,6 +1435,12 @@
       return this._mask[bit] === 1;
     },
 
+    _isBoldMasked: function(x, y) {
+      var bit = Frame._getMaskBit(x, y);
+
+      return this._boldmask[bit] === 1;
+    },
+
     _pack: function() {
       var bit, i, j;
       var k = 1;
@@ -1488,6 +1522,12 @@
       this._mask[bit] = 1;
     },
 
+    _setBoldMask: function(x, y) {
+      var bit = Frame._getMaskBit(x, y);
+
+      this._boldmask[bit] = 1;
+    },
+
     _syncMask: function() {
       var x, y;
       var width = this.width;
@@ -1496,6 +1536,7 @@
         for (x = 0; x <= y; x++) {
           if (this.buffer[x + (width * y)]) {
             this._setMask(x, y);
+            this._setBoldMask(x, y);
           }
         }
       }
@@ -2055,10 +2096,17 @@
     new Option_1('foreground', true, 'black'),
     new Option_1('foregroundAlpha', true, 1, Utilities_1.abs),
     new Option_1('level', true, 'L', Utilities_1.toUpperCase),
+    new Option_1('positionSep', true, 'D', Utilities_1.toUpperCase),
+    new Option_1('dataSep', true, 'D', Utilities_1.toUpperCase),
     new Option_1('mime', true, 'image/png'),
     new Option_1('padding', true, null, Utilities_1.abs),
     new Option_1('size', true, 100, Utilities_1.abs),
-    new Option_1('value', true, '')
+    new Option_1('value', true, ''),
+    new Option_1('positionCorner', true, 0, Utilities_1.abs),
+    new Option_1('dataCornerTL', true, 0, Utilities_1.abs),
+    new Option_1('dataCornerTR', true, 0, Utilities_1.abs),
+    new Option_1('dataCornerBR', true, 0, Utilities_1.abs),
+    new Option_1('dataCornerBL', true, 0, Utilities_1.abs)
   ]);
   var serviceManager = new ServiceManager_1();
 
@@ -2210,10 +2258,17 @@
    * @property {string} [foreground="black"] - The foreground color to be applied to the QR code.
    * @property {number} [foregroundAlpha=1] - The foreground alpha to be applied to the QR code.
    * @property {string} [level="L"] - The error correction level to be applied to the QR code.
+   * @property {string} [positionSep="D"] - Separating cells of positions in QR Code.
+   * @property {string} [dataSep="D"] - Separating cells of data in QR Code.
    * @property {string} [mime="image/png"] - The MIME type to be used to render the image for the QR code.
    * @property {number} [padding] - The padding for the QR code in pixels.
    * @property {number} [size=100] - The size of the QR code in pixels.
    * @property {string} [value=""] - The value to be encoded within the QR code.
+   * @property {number} [positionCorner] - Rounding the corners of the QR Code position cells.
+   * @property {number} [dataCornerTL] - Rounding the top left corner of data cells.
+   * @property {number} [dataCornerTR] - Rounding the top right corner of data cells.
+   * @property {number} [dataCornerBR] - Rounding the bottom right corner of data cells.
+   * @property {number} [dataCornerBL] - Rounding the bottom left corner of data cells.
    */
 
   var index = QRious_1$2;
@@ -2360,4 +2415,4 @@
 
 })));
 
-//# sourceMappingURL=qrious.js.map
+//# sourceMappingURL=qrious2.js.map

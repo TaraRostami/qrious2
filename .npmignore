@@ -4,6 +4,8 @@ AUTHORS.md
 bower.json
 CHANGES.md
 CONTRIBUTING.md
-demo.html
+index.html
+script.js
+style.css
 Gruntfile.js
 README.md

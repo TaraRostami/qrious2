@@ -1,3 +1,11 @@
+## Version 5.0.0 2024.03.29
+
+* Fixed Padding & Size
+* Add Separate Position
+* Add Separate Data
+* Add Position Corner
+* Add Data Corner TL & TR & BR & BL
+
 ## Version 4.0.2, 2017.06.04
 
 * Correct CDNJS links in README [#93](https://github.com/neocotic/qrious/issues/93)
