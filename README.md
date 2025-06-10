@@ -1,12 +1,12 @@
 <p align="center"><img src="./media/qrious2.svg" alt="Image"></p>
 
-[QRious2](https://github.com/TaraRostami/qrious2/) is a pure JavaScript library for generating QR codes using HTML5 canvas.
+[![Release](https://img.shields.io/github/v/release/TaraRostami/qrious2.svg?style=for-the-badge&color=%237546c9&longCache=true)](https://github.com/TaraRostami/qrious2/releases)
+[![Demo](https://img.shields.io/badge/demo-live-1ebf37.svg?style=for-the-badge&longCache=true)](https://tararostami.github.io/qrious2/)
+[![Chat](https://img.shields.io/badge/telegram-blue?logo=telegram&label=chat&style=for-the-badge&longCache=true)](https://t.me/tararostami)
+[![License](https://img.shields.io/npm/l/qrious2.svg?color=blue&style=for-the-badge&longCache=true)](https://github.com/TaraRostami/qrious2/blob/master/LICENSE.md)
+[![npm Release](https://img.shields.io/npm/v/qrious2.svg?style=for-the-badge&longCache=true)](https://www.npmjs.com/package/qrious2)
 
-[![](https://img.shields.io/github/v/release/TaraRostami/qrious2.svg?color=7546c9)](https://github.com/TaraRostami/qrious2/releases)
-[![Demo](https://img.shields.io/badge/demo-live-1ebf37.svg)](https://tararostami.github.io/qrious2/)
-[![Chat](https://img.shields.io/badge/telegram-blue?logo=telegram&label=chat)](https://t.me/tararostami)
-[![License](https://img.shields.io/npm/l/qrious2.svg?color=blue)](https://github.com/TaraRostami/qrious2/blob/master/LICENSE.md)
-[![Release](https://img.shields.io/npm/v/qrious2.svg)](https://www.npmjs.com/package/qrious2)
+[QRious2](https://github.com/TaraRostami/qrious2/) is a pure JavaScript library for generating QR codes using HTML5 canvas.
 
 * [Install](#install)
 * [Examples](#examples)
